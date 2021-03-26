@@ -6,6 +6,10 @@ const app = express();
 const port = 3000;
 
 const router = require('./routes');
+const db = require('./config/db');
+
+//connect to Database
+db.connect();
 
 //HTTP logger
 app.use(morgan('combined'));
@@ -33,5 +37,5 @@ app.set('views', path.join(__dirname, 'resource', 'views'));
 router(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`App listening at http://localhost:${port}`);
 });
