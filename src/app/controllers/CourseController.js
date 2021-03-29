@@ -40,6 +40,22 @@ class CourseController {
             .catch(next);
     }
 
+    delete(req, res, next) {
+        Course.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
 
+    deleteFake(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    restore(req, res, next) {
+        Course.restore({ _id: req.params.id })
+            .then(() => res.redirect('/admin'))
+            .catch(next);
+    }
 }
 module.exports = new CourseController();
