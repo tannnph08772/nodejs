@@ -1,6 +1,6 @@
 const { response } = require('express');
 const Course = require('../models/Course');
-const { mongooseToObject } = require('../util/mongoose')
+const { mongooseToObject } = require('../util/mongoose');
 
 class CourseController {
     show(req, res, next) {
@@ -56,6 +56,20 @@ class CourseController {
         Course.restore({ _id: req.params.id })
             .then(() => res.redirect('/admin'))
             .catch(next);
+    }
+
+    handleActionForm(req, res, next) {
+        switch (req.body.action) {
+            case 'delete':
+                Course.delete({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect('back'))
+                    .catch(next);
+                break;
+
+            default:
+                res.json({ message: 'Action is invalid' })
+                break;
+        }
     }
 }
 module.exports = new CourseController();

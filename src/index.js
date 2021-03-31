@@ -8,11 +8,13 @@ const methodOverride = require('method-override');
 
 const router = require('./routes');
 const db = require('./config/db');
+const { abort } = require('process');
+const { body, validationResult } = require('express-validator');
+const session = require('express-session');
+
 
 //connect to Database
 db.connect();
-
-
 
 
 //HTTP logger
@@ -36,13 +38,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
     express.urlencoded({
         extended: true,
-
     }),
 );
 app.use(express.json());
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resource', 'views'));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
 
 router(app);
 

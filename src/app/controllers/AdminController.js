@@ -1,11 +1,13 @@
+const { deleteOne } = require('../models/Course');
 const Course = require('../models/Course');
 const { changeArrToObject } = require('../util/mongoose')
 
 class adminController {
     dashboard(req, res, next) {
-        Course.find({})
-            .then(courses => {
+        Promise.all([Course.find({}), Course.countDocumentsDeleted({})])
+            .then(([courses, deleteCount]) => {
                 res.render('admin', {
+                    deleteCount: deleteCount,
                     courses: changeArrToObject(courses)
                 });
             }) // truyền courses vào để get dữ liệu đổ ra trang home :{courses:courses}

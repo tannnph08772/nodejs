@@ -76,11 +76,11 @@
       deleteForm.action = '/course/' + courseId + '/force?_method=DELETE';
       deleteForm.submit();
   }
-btnRestore.click(function(e) {
-  e.preventDefault();
-  var courseId = $(this).data('id');
-  restoreForm.action = '/course/' + courseId + '/restore?_method=PATCH';
-  restoreForm.submit();
+  btnRestore.click(function(e) {
+    e.preventDefault();
+    var courseId = $(this).data('id');
+    restoreForm.action = '/course/' + courseId + '/restore?_method=PATCH';
+    restoreForm.submit();
 })
 
 </script>
