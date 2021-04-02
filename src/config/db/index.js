@@ -9,6 +9,7 @@ async function connect() {
         await mongoose.connect('mongodb://localhost:27017/db_demo', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useCreateIndex: true
         });
         console.log('connect Thành công');
     } catch (error) {

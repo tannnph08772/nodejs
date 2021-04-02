@@ -1,17 +1,16 @@
 <h1>Thêm data</h1>
-<form action="/course/store" method="POST">
+<form action="/course/store" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="title">title:</label>
+        <label for="title">Title</label>
         <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group">
-        <label for="desc">desc:</label>
+        <label for="desc">Description</label>
         <input type="text" name="desc" class="form-control">
     </div>
     <div class="form-group">
-        <label for="desc">image:</label>
-        <input type="text" name="image" class="form-control">
+        <label for="image">Image</label>
+        <input type="file" name="image" class="form-control">
     </div>
-
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

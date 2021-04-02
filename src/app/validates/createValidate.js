@@ -1,16 +1,25 @@
-const { check, validationResult } = require('express-validator');
-
-exports.UvalidationResult = (req, res, next) => {
-    const result = validationResult(req)
-    if (!result.isEmpty()) {
-        const error = result.array()[0].msg;
-        return res.status(422).json({ success: false, error: error })
-    }
-    next();
+const { body, validationResult } = require('express-validator')
+const courseValidationRules = () => {
+    return [
+        // username must be an email
+        body('title', 'khong dc de trong').not().isEmpty(),
+        // password must be at least 5 chars long
+        body('desc', 'khong dc de trong').isLength({ min: 5 }),
+    ]
 }
 
-exports.craeteValidate = [
-    check('title').trim().not().isEmpty().withMessage('Title is empty'),
-    check('desc').trim().not().isEmpty().withMessage('Desc is empty'),
-    check('image').trim().not().isEmpty().withMessage('Image is empty'),
-]
+const validate = (req, res, next) => {
+    const errors = validationResult(req)
+    if (errors.isEmpty()) {
+        return next();
+    } else {
+        const extractedErrors = errors.array().map(abc => abc);
+        return res.json(extractedErrors);
+    }
+
+}
+
+module.exports = {
+    courseValidationRules,
+    validate,
+}

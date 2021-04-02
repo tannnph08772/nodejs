@@ -7,7 +7,8 @@ const mongooseDelete = require('mongoose-delete');
 const Course = new Schema({
     title: { type: String, maxLength: 255 },
     desc: { type: String, maxLength: 655 },
-    image: { type: String, maxLength: 255 },
+    image: { type: String, maxLength: 2255 },
+    price: { type: Number, maxLength: 55 },
     slug: { type: String, slug: ["title"], unique: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },

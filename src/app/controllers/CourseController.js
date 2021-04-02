@@ -1,6 +1,9 @@
 const { response } = require('express');
 const Course = require('../models/Course');
 const { mongooseToObject } = require('../util/mongoose');
+const path = require('path');
+const { check, validationResult } = require('express-validator');
+const { index } = require('./NewsController');
 
 class CourseController {
     show(req, res, next) {
@@ -18,7 +21,19 @@ class CourseController {
     }
 
     store(req, res, next) {
-            const course = new Course(req.body);
+            const course = new Course({
+                title: req.body.title,
+                desc: req.body.desc
+            });
+            if (req.files) {
+                let path = ''
+                req.files.forEach(function(files, index, arr) {
+                    path = path + files.path + ','
+                });
+                path = path.substring(0, path.lastIndexOf(","))
+                course.image = path
+            }
+
             course.save()
                 .then(() => res.redirect("/"))
                 .catch(next)
